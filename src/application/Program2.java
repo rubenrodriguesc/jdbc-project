@@ -13,6 +13,7 @@ public class Program2 {
 		Scanner sc = new Scanner(System.in);
 		
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+		Department department;
 		
 //		System.out.println("\n=== TEST 1: department insert ====");
 //		Department dep = new Department(null, "DP1");
@@ -25,6 +26,7 @@ public class Program2 {
 			System.out.println("Program Test for DepartmentDaoJDBC");
 			System.out.println("Enter the number for execute an option:");
 			System.out.println("1 - Insert Department");
+			System.out.println("2 - Update Department");
 			System.out.println("0 - Exit");
 			System.out.print("Option: ");
 			int option = sc.nextInt();
@@ -32,13 +34,34 @@ public class Program2 {
 			
 			switch (option) {
 			case 1:
+				System.out.println("-------------------------------------------");
 				System.out.println("Inserting new Department");
+				System.out.println("-------------------------------------------");
 				System.out.print("Name: ");
 				String name = sc.next();
-				Department department = new Department(null, name);
+				department = new Department(null, name);
 				departmentDao.insert(department);
 				System.out.println("-------------------------------------------");
 				System.out.println("Inserted: "+ department);
+				break;
+			case 2:
+				System.out.println("-------------------------------------------");
+				System.out.println("Updating Department");
+				System.out.println("-------------------------------------------");
+				System.out.print("Enter with Department Id for update: ");
+				int id = sc.nextInt();
+				System.out.println("-------------------------------------------");
+				department = departmentDao.findById(id);
+				System.out.println("Department Selected: " + department);
+				System.out.println("-------------------------------------------");
+				System.out.println("Enter new data:");
+				System.out.print("Name: ");
+				department.setName(sc.next());
+				departmentDao.update(department);
+				System.out.println("-------------------------------------------");
+				System.out.println("Department Updated! ");
+				System.out.println(department);
+				System.out.println("-------------------------------------------");
 				break;
 			case 0:
 				System.out.println("Exiting....");
@@ -46,7 +69,7 @@ public class Program2 {
 				break;
 
 			default:
-				System.out.println("Opção inválida!");
+				System.out.println("Invalid Option!");
 				break;
 			}
 			
