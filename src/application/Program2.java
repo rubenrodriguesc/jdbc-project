@@ -1,5 +1,6 @@
 package application;
 
+import java.util.List;
 import java.util.Scanner;
 
 import model.dao.DaoFactory;
@@ -15,11 +16,7 @@ public class Program2 {
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		Department department;
 		
-//		System.out.println("\n=== TEST 1: department insert ====");
-//		Department dep = new Department(null, "DP1");
-//		departmentDao.insert(dep);
-//		System.out.println("Inserted! New id = " + dep.getId());
-		
+	
 		boolean start = true;
 		while (start) {
 			System.out.println("===========================================");
@@ -27,6 +24,9 @@ public class Program2 {
 			System.out.println("Enter the number for execute an option:");
 			System.out.println("1 - Insert Department");
 			System.out.println("2 - Update Department");
+			System.out.println("3 - Delete Department");
+			System.out.println("4 - Find By Id Department");
+			System.out.println("5 - Find All Department");
 			System.out.println("0 - Exit");
 			System.out.print("Option: ");
 			int option = sc.nextInt();
@@ -62,6 +62,37 @@ public class Program2 {
 				System.out.println("Department Updated! ");
 				System.out.println(department);
 				System.out.println("-------------------------------------------");
+				break;
+			case 3:
+				System.out.println("-------------------------------------------");
+				System.out.println("Deleting Department");
+				System.out.println("-------------------------------------------");
+				System.out.print("Enter with Department Id to delete: ");
+				id = sc.nextInt();
+				System.out.println("-------------------------------------------");
+				departmentDao.deleteById(id);
+				System.out.println("Delete completed!");
+				System.out.println("-------------------------------------------");
+				break;
+			case 4:
+				System.out.println("-------------------------------------------");
+				System.out.println("Finding Department by Id");
+				System.out.println("-------------------------------------------");
+				System.out.print("Enter with Department Id: ");
+				id = sc.nextInt();
+				System.out.println("-------------------------------------------");
+				department = departmentDao.findById(id);
+				System.out.println(department);
+				System.out.println("-------------------------------------------");
+				break;
+			case 5:
+				System.out.println("-------------------------------------------");
+				System.out.println("Finding All Departments");
+				System.out.println("-------------------------------------------");
+				List<Department> list = departmentDao.findAll();
+				for (Department dep : list) {
+					System.out.println(dep);
+				}
 				break;
 			case 0:
 				System.out.println("Exiting....");
